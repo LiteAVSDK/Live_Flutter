@@ -4,6 +4,8 @@
 腾讯实时音视频（Tencent Real-Time Communication，TRTC）低延时互动直播方案
 凭借行业领先的网络与音视频技术，结合腾讯云优质的节点资源，帮助开发者搭建卡顿率更低、延时1秒以内的互动直播，让直播走进 CDN 2.0 时代。
 
+[移动直播Flutter插件主页](https://pub.dev/packages/live_flutter_plugin/versions)
+
 ## 功能特性
 - 支持 RTMP, HTTP-FLV, TRTC 以及 WebRTC；
 - 屏幕截图，可以截取当前直播流的视频画面；
