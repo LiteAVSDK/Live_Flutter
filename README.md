@@ -3,6 +3,8 @@ English | [简体中文](./README_zh-CN.md)
 
 The solution allows anchors to compete with each other and co-anchor with viewers in real time, with a global end-to-end latency of below 300 ms on average, and supports 1080p resolution.
 
+[live_flutter_plugin pub dev homepage](https://pub.dev/packages/live_flutter_plugin/versions)
+
 ## Features
 - Supports RTMP, HTTP-FLV, TRTC and WebRTC.
 - View capturing, which allows you to capture the video images of the current livestream.
