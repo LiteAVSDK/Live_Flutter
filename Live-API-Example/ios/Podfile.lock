@@ -1,0 +1,41 @@
+PODS:
+  - Flutter (1.0.0)
+  - live_flutter_plugin (0.0.1):
+    - Flutter
+    - TXLiteAVSDK_Live (= 9.5.11234)
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - TXLiteAVSDK_Live (9.5.11234)
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - live_flutter_plugin (from `.symlinks/plugins/live_flutter_plugin/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
+
+SPEC REPOS:
+  trunk:
+    - TXLiteAVSDK_Live
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  live_flutter_plugin:
+    :path: ".symlinks/plugins/live_flutter_plugin/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  live_flutter_plugin: 3019a1acecb6c3cb4aa5d99f7f84441833926e3a
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  TXLiteAVSDK_Live: 866e2c521f3499b29963b4c5fa940d3e798c2b11
+  webview_flutter_wkwebview: 005fbd90c888a42c5690919a1527ecc6649e1162
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.2
