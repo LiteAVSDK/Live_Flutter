@@ -8,11 +8,11 @@
 在这个示例项目中包含了以下场景:（带上对应的跳转目录，方便用户快速浏览感兴趣的功能）
 
 - 基础功能
-  - [直播推流](./lib/page/Push/LiveCameraPush.dart)
-  - [屏幕分享](./lib/page/Push/LiveScreenPush.dart)
-  - [直播拉流](./lib/page/Play/LivePlay.dart)
-  - [连麦互动](./lib/page/LinkMic/LiveLinkMicAnchor.dart)
-  - [PK互动](./lib/page/PK/LivePKAnchor.dart)
+  - [直播推流](./lib/page/push/live_camera_push.dart)
+  - [屏幕分享](./lib/page/push/live_screen_push.dart)
+  - [直播拉流](./lib/page/play/live_play.dart)
+  - [连麦互动](./lib/page/link_mic)
+  - [PK互动](./lib/page/pk)
   
 
 ## 环境准备

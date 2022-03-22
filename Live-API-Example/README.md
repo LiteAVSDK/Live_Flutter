@@ -1,4 +1,4 @@
-# live_flutter_plugin-Example
+# live_flutter_plugin-Example  
 [中文](README_zh-CN.md) | English
 
 ## Background
@@ -8,11 +8,11 @@ This open-source demo shows how to use some APIs of the [Live Flutter Plugin](ht
 This demo covers the following features (click to view the details of a feature):
 
 - Basic Features
-  - [Camera Push](./lib/page/Push/LiveCameraPush.dart)
-  - [Screen Share](./lib/page/Push/LiveScreenPush.dart)
-  - [Live Streaming](./lib/page/Play/LivePlay.dart)
-  - [Link-Mic](./lib/page/LinkMic/LiveLinkMicAnchor.dart)
-  - [Link-PK](./lib/page/PK/LivePKAnchor.dart)
+  - [Camera Push](./lib/page/push/live_camera_push.dart)
+  - [Screen Share](./lib/page/push/live_screen_push.dart)
+  - [Live Streaming](./lib/page/play/live_play.dart)
+  - [Link-Mic](./lib/page/link_mic)
+  - [Link-PK](./lib/page/pk)
 
 ## Environment Requirements
 - Flutter 2.0or above
