@@ -1,26 +1,25 @@
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import 'Common/LiveCommonDef.dart';
-import 'PK/LivePKAnchor.dart';
-import 'PK/LivePKAudience.dart';
+import 'common/live_common_def.dart';
+import 'common/live_user_input.dart';
+import 'link_mic/live_link_mic_anchor.dart';
+import 'link_mic/live_link_mic_audience.dart';
 
-class LiveStartPKPage extends StatefulWidget {
+class LiveStartLinkMicPage extends StatefulWidget {
 
   final LiveRoleType roleType;
-  const LiveStartPKPage({Key? key, required this.roleType}) : super(key: key);
+  const LiveStartLinkMicPage({Key? key, required this.roleType}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _LiveStartPKPageState();
+    return _LiveStartLinkMicPageState();
   }
 }
 
-class _LiveStartPKPageState extends State<LiveStartPKPage> {
+class _LiveStartLinkMicPageState extends State<LiveStartLinkMicPage> {
 
   /// 直播流id
   String _streamId = '';
@@ -58,7 +57,7 @@ class _LiveStartPKPageState extends State<LiveStartPKPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Link-PK"),
+          title: const Text("Link-Mic"),
           leading: IconButton(
               onPressed: () => {Navigator.pop(context)},
               icon: const Icon(Icons.arrow_back_ios)
@@ -108,15 +107,20 @@ class _LiveStartPKPageState extends State<LiveStartPKPage> {
                               "Next",
                               style: TextStyle(fontSize: 15),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
+                              unFocus();
                               if (_streamId == "") {
                                 showToastText("Stream Id can not empty");
                                 return;
                               }
-                              if (widget.roleType == LiveRoleType.annchor) {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LivePKAnchorPage(streamId: _streamId)));
+                              if (widget.roleType == LiveRoleType.anchor) {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LiveLinkMicAnchorPage(streamId: _streamId)));
                               } else {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LivePKAudiencePage(streamId: _streamId)));
+                                var userId = await Navigator.push(context, MaterialPageRoute(builder: (context) => const LiveUserInputPage()));
+                                if ((userId is String) && userId.isNotEmpty) {
+                                  debugPrint("input userId: $userId");
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => LiveLinkMicAudiencePage(streamId: _streamId, userId: userId)));
+                                }
                               }
                             },
                           ),

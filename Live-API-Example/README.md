@@ -38,8 +38,8 @@ You have [signed up for a Tencent Cloud account](https://intl.cloud.tencent.com/
 
 
 ### Configuring demo project files
-1. Open the [GenerateTestUserSig.dart](debug/GenerateTestUserSig.dart) file in the Debug directory.
-2. Configure two parameters in the `GenerateTestUserSig.dart` file:
+1. Open the [generate_test_user_sig.dart](debug/generate_test_user_sig.dart) file in the Debug directory.
+2. Configure two parameters in the `generate_test_user_sig.dart` file:
   - `SDKAPPID`: `PLACEHOLDER` by default. Set it to the actual `SDKAppID`.
   - `SECRETKEY`: left empty by default. Set it to the actual key.
  ![ #900px](https://main.qcloudimg.com/raw/fba60aa9a44a94455fe31b809433cfa4.png)

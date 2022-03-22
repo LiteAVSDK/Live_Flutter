@@ -1,7 +1,4 @@
 
-
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:live_flutter_plugin/v2_tx_live_code.dart';
 import 'package:live_flutter_plugin/v2_tx_live_def.dart';
@@ -9,7 +6,7 @@ import 'package:live_flutter_plugin/v2_tx_live_pusher.dart';
 import 'package:live_flutter_plugin/widget/v2_tx_live_video_widget.dart';
 
 import 'package:flutter/material.dart';
-import '../../Utils/URLUtils.dart';
+import '../../utils/url_utils.dart';
 
 
 /// 屏幕分享
@@ -35,7 +32,6 @@ class LiveScreenPushPage extends StatefulWidget {
 
 class _LiveScreenPushPageState extends State<LiveScreenPushPage> {
 
-  String _platformVersion = 'Unknown';
   int? _localViewId;
   V2TXLivePusher? _livePusher;
   bool _isStartPush = false;
@@ -47,11 +43,17 @@ class _LiveScreenPushPageState extends State<LiveScreenPushPage> {
   }
 
   @override
-  dispose() {
-    debugPrint("Live-Screen push dispose");
+  void deactivate() {
+    debugPrint("Live-Screen push deactivate");
     _livePusher?.stopMicrophone();
     _livePusher?.stopScreenCapture();
     _livePusher?.destroy();
+    super.deactivate();
+  }
+
+  @override
+  dispose() {
+    debugPrint("Live-Screen push dispose");
     super.dispose();
   }
 
@@ -66,9 +68,7 @@ class _LiveScreenPushPageState extends State<LiveScreenPushPage> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-    setState(() {
-      _platformVersion = "CreatePusher result is ${_livePusher?.status}";
-    });
+    debugPrint("CreatePusher result is ${_livePusher?.status}");
   }
 
   startPush() async {

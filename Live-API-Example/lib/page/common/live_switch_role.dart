@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-import 'LiveCommonDef.dart';
-import '../LiveStartPK.dart';
-import '../LiveStartLinkMic.dart';
+import 'live_common_def.dart';
+import '../live_start_pk.dart';
+import '../live_start_link_mic.dart';
 
 class LiveSwitchRolePage extends StatefulWidget {
   final LivePageType pageType;
@@ -17,7 +17,7 @@ class LiveSwitchRolePage extends StatefulWidget {
 
 class _LiveSwitchRolePageState extends State<LiveSwitchRolePage> {
   /// 身份
-  LiveRoleType _roleType = LiveRoleType.annchor;
+  LiveRoleType _roleType = LiveRoleType.anchor;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +59,11 @@ class _LiveSwitchRolePageState extends State<LiveSwitchRolePage> {
                               style: TextStyle(fontSize: 15),
                             ),
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(_roleType == LiveRoleType.annchor ? Colors.blue:Colors.grey),
+                              backgroundColor: MaterialStateProperty.all(_roleType == LiveRoleType.anchor ? Colors.blue:Colors.grey),
                             ),
                             onPressed: () {
                               setState(() {
-                                _roleType = LiveRoleType.annchor;
+                                _roleType = LiveRoleType.anchor;
                               });
                             },
                           ),

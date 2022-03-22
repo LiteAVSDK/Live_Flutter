@@ -1,11 +1,10 @@
 import 'dart:core';
-import 'dart:ffi';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:live_flutter_plugin/manager/tx_audio_effect_manager.dart';
 import 'package:live_flutter_plugin/v2_tx_live_def.dart';
-import '../../Common/LiveSliderWidget.dart';
+
+import '../../common/live_slider_widget.dart';
 
 class LiveAudioSettings {
   /// 音乐播放文件

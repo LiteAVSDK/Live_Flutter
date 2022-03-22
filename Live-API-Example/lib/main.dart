@@ -1,18 +1,18 @@
 
-import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
-import 'package:live_flutter_plugin/v2_tx_live_def.dart';
+import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:live_flutter_plugin/v2_tx_live_premier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:share_plus/share_plus.dart';
 
-import 'debug/GenerateTestUserSig.dart';
-import 'page/LiveStartPush.dart';
-import 'page/LiveStartPlay.dart';
-import 'page/Common/LiveCommonDef.dart';
-import 'page/Common/LiveSwitchRole.dart';
+import 'debug/generate_test_user_sig.dart';
+import 'page/common/live_switch_role.dart';
+import 'page/common/live_common_def.dart';
+import 'page/live_start_push.dart';
+import 'page/live_start_play.dart';
+
+import 'utils/file_utils.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -53,12 +53,43 @@ class _MyAppState extends State<MyApp> {
     debugPrint("==premier listener param= $param");
   }
 
+  /// Plugin Log export
+  _onOpenLogExport() async {
+    var logFiles = await FileUtils.getLogFiles();
+    if (logFiles != null && logFiles.isNotEmpty) {
+      List<BottomSheetAction> actions = [];
+      for (var file in logFiles) {
+        var fileName = file.path.split("/").last;
+        var action = BottomSheetAction(
+          title: Text(fileName),
+          onPressed: () {
+            Share.shareFiles([file.path]);
+          },
+        );
+        actions.add(action);
+      }
+      debugPrint("logFiles: $logFiles");
+      showAdaptiveActionSheet(
+        context: context,
+        actions: actions,
+        cancelAction: CancelAction(title: const Text("Cancel")),
+      );
+    } else {
+      debugPrint("logFiles: not found");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: GestureDetector (
+            child: const Text('Home'),
+            onLongPress: () {
+              _onOpenLogExport();
+            },
+          ),
           automaticallyImplyLeading: true,
         ),
         body: Center(
@@ -75,7 +106,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LiveStartPushPage(pushType: LiveStartPushType.camera)),
+                    MaterialPageRoute(builder: (context) => const LiveStartPushPage(pushType: LiveStartPushType.camera)),
                   );
                 },
               ),
@@ -87,7 +118,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LiveStartPushPage(pushType: LiveStartPushType.screen)),
+                    MaterialPageRoute(builder: (context) => const LiveStartPushPage(pushType: LiveStartPushType.screen)),
                   );
                 },
               ),
@@ -99,7 +130,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LiveStartPlayPage()),
+                    MaterialPageRoute(builder: (context) => const LiveStartPlayPage()),
                   );
                 },
               ),
@@ -111,7 +142,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LiveSwitchRolePage(pageType: LivePageType.linkMic)),
+                    MaterialPageRoute(builder: (context) => const LiveSwitchRolePage(pageType: LivePageType.linkMic)),
                   );
                 },
               ),
@@ -123,7 +154,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LiveSwitchRolePage(pageType: LivePageType.pk)),
+                    MaterialPageRoute(builder: (context) => const LiveSwitchRolePage(pageType: LivePageType.pk)),
                   );
                 },
               ),

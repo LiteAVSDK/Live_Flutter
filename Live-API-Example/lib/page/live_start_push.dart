@@ -3,10 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:live_flutter_plugin/v2_tx_live_def.dart';
 
-import '../Utils/URLUtils.dart';
-import 'Push/LiveCameraPush.dart';
-import 'Push/LiveScreenPush.dart';
-import 'LiveWebView.dart';
+import 'push/live_camera_push.dart';
+import 'push/live_screen_push.dart';
+import 'live_web_view.dart';
 
 enum LiveStartPushType {
   /// 摄像头推流
@@ -26,8 +25,6 @@ class LiveStartPushPage extends StatefulWidget {
 }
 
 class _LiveStartPushPageState extends State<LiveStartPushPage> {
-  /// 用户id
-  final String _userId = URLUtils.generateRandomUserId();
 
   /// 直播流id
   String _streamId = '';
@@ -65,6 +62,7 @@ class _LiveStartPushPageState extends State<LiveStartPushPage> {
   }
 
   startLive(BuildContext context, V2TXLiveMode liveMode) {
+    unFocus();
     if (_streamId == "") {
       showToastText("Stream Id can not empty");
       return;

@@ -12,9 +12,9 @@ import 'package:live_flutter_plugin/v2_tx_live_pusher.dart';
 import 'package:live_flutter_plugin/widget/v2_tx_live_video_widget.dart';
 import 'package:live_flutter_plugin/v2_tx_live_pusher_observer.dart';
 
-import '../../Utils/URLUtils.dart';
-import 'Settings/LiveBeautySetting.dart';
-import 'Settings/LiveAudioSetting.dart';
+import '../../utils/url_utils.dart';
+import 'settings/live_beauty_setting.dart';
+import 'settings/live_audio_setting.dart';
 
 /// 摄像头推流
 class LiveCameraPushPage extends StatefulWidget {
@@ -58,7 +58,6 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
   final LiveBeautySettings _beautySettings = LiveBeautySettings();
   /// 音频数据
   final LiveAudioSettings _audioSettings = LiveAudioSettings();
-  String _platformVersion = 'Unknown';
   int? _localViewId;
   V2TXLivePusher? _livePusher;
 
@@ -69,14 +68,20 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
   }
 
   @override
-  dispose() {
-    debugPrint("Live-Camera push dispose");
+  void deactivate() {
+    debugPrint("Live-Camera push deactivate");
     _livePusher?.removeListener(onPusherObserver);
     _livePusher?.stopMicrophone();
     _livePusher?.stopCamera();
     _livePusher?.stopPush();
     resetBeautySetting();
     _livePusher?.destroy();
+    super.deactivate();
+  }
+
+  @override
+  dispose() {
+    debugPrint("Live-Camera push dispose");
     super.dispose();
   }
 
@@ -99,7 +104,7 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
     setState(() {
-      _platformVersion = "CreatePusher result is ${_livePusher?.status}";
+      debugPrint("CreatePusher result is ${_livePusher?.status}");
     });
   }
 
@@ -134,6 +139,13 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
     await _livePusher?.setVideoQuality(videoEncoderParam);
     await _livePusher?.setAudioQuality(widget.audioQuality);
 
+    if (_localViewId != null) {
+      var code = await _livePusher?.setRenderViewID(_localViewId!);
+      if (code != V2TXLIVE_OK) {
+        showErrordDialog("StartPush error： please check remoteView load");
+        return;
+      }
+    }
     var cameraCode = await _livePusher?.startCamera(true);
     if (cameraCode == null || cameraCode != V2TXLIVE_OK) {
       debugPrint("cameraCode: $cameraCode");
@@ -154,7 +166,8 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
     if (_microphoneEnable) {
       await _livePusher?.startMicrophone();
     }
-    _livePusher?.setMixTranscodingConfig(null);
+    var isFrontCamera = await _txDeviceManager?.isFrontCamera();
+    debugPrint("current device isFrontCamera: $isFrontCamera");
   }
 
   stopPush() async {
@@ -211,10 +224,15 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
   }
 
   void setLiveRotation(V2TXLiveRotation rotation) async {
-    await _livePusher?.setRenderRotation(rotation);
-    setState(() {
-      _liveRotation = rotation;
-    });
+    var code = await _livePusher?.setRenderRotation(rotation);
+    debugPrint("setLiveRotation code: $code, rotation: $rotation ");
+    if (code == V2TXLIVE_OK) {
+      setState(() {
+        _liveRotation = rotation;
+      });
+    } else {
+      showErrordDialog("setLiveRotation error: code-$code");
+    }
   }
 
   String _liveRotationTitle() {
@@ -256,17 +274,15 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
   }
 
   bool _isStartPush = false;
-
   Widget renderView() {
     return V2TXLiveVideoWidget(
       onViewCreated: (viewId) async {
-        await _livePusher?.setRenderViewID(viewId);
-        setState(() {
-          _localViewId = viewId;
-        });
+        _localViewId = viewId;
         if (_isStartPush == false) {
           _isStartPush = true;
-          startPush();
+          Future.delayed(const Duration(seconds: 1), (){
+            startPush();
+          });
         }
       },
     );

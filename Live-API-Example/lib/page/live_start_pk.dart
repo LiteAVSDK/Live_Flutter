@@ -3,23 +3,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import 'Common/LiveCommonDef.dart';
-import 'Common/LiveUserInput.dart';
-import 'LinkMic/LiveLinkMicAnchor.dart';
-import 'LinkMic/LiveLinkMicAudience.dart';
+import 'common/live_common_def.dart';
+import 'pk/live_pk_anchor.dart';
+import 'pk/live_pk_audience.dart';
 
-class LiveStartLinkMicPage extends StatefulWidget {
+class LiveStartPKPage extends StatefulWidget {
 
   final LiveRoleType roleType;
-  const LiveStartLinkMicPage({Key? key, required this.roleType}) : super(key: key);
+  const LiveStartPKPage({Key? key, required this.roleType}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _LiveStartLinkMicPageState();
+    return _LiveStartPKPageState();
   }
 }
 
-class _LiveStartLinkMicPageState extends State<LiveStartLinkMicPage> {
+class _LiveStartPKPageState extends State<LiveStartPKPage> {
 
   /// 直播流id
   String _streamId = '';
@@ -57,7 +56,7 @@ class _LiveStartLinkMicPageState extends State<LiveStartLinkMicPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Link-Mic"),
+          title: const Text("Link-PK"),
           leading: IconButton(
               onPressed: () => {Navigator.pop(context)},
               icon: const Icon(Icons.arrow_back_ios)
@@ -107,19 +106,16 @@ class _LiveStartLinkMicPageState extends State<LiveStartLinkMicPage> {
                               "Next",
                               style: TextStyle(fontSize: 15),
                             ),
-                            onPressed: () async {
+                            onPressed: () {
+                              unFocus();
                               if (_streamId == "") {
                                 showToastText("Stream Id can not empty");
                                 return;
                               }
-                              if (widget.roleType == LiveRoleType.annchor) {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LiveLinkMicAnchorPage(streamId: _streamId)));
+                              if (widget.roleType == LiveRoleType.anchor) {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LivePKAnchorPage(streamId: _streamId)));
                               } else {
-                                var userId = await Navigator.push(context, MaterialPageRoute(builder: (context) => const LiveUserInputPage()));
-                                if ((userId is String) && userId.isNotEmpty) {
-                                  debugPrint("input userId: $userId");
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => LiveLinkMicAudiencePage(streamId: _streamId, userId: userId)));
-                                }
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LivePKAudiencePage(streamId: _streamId)));
                               }
                             },
                           ),

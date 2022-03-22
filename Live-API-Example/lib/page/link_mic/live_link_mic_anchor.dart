@@ -7,7 +7,7 @@ import 'package:live_flutter_plugin/v2_tx_live_player.dart';
 import 'package:live_flutter_plugin/v2_tx_live_pusher.dart';
 import 'package:live_flutter_plugin/widget/v2_tx_live_video_widget.dart';
 
-import '../../Utils/URLUtils.dart';
+import '../../utils/url_utils.dart';
 
 class LiveLinkMicAnchorPage extends StatefulWidget {
   final String streamId;
@@ -49,9 +49,9 @@ class _LiveLinkMicAnchorPageState extends State<LiveLinkMicAnchorPage> {
   }
 
   @override
-  dispose() {
+  void deactivate() {
     unFocus();
-    debugPrint("Link-Mic Anchor dispose");
+    debugPrint("Link-Mic Anchor deactivate");
     _livePlayer.stopPlay();
     _livePlayer.destroy();
 
@@ -60,6 +60,12 @@ class _LiveLinkMicAnchorPageState extends State<LiveLinkMicAnchorPage> {
     _livePusher.setMixTranscodingConfig(null);
     _livePusher.stopPush();
     _livePusher.destroy();
+    super.deactivate();
+  }
+
+  @override
+  dispose() {
+    debugPrint("Link-Mic Anchor dispose");
     super.dispose();
   }
 
@@ -84,6 +90,9 @@ class _LiveLinkMicAnchorPageState extends State<LiveLinkMicAnchorPage> {
     if (cameraCode != V2TXLIVE_OK) {
       debugPrint("cameraCode: $cameraCode");
       return;
+    }
+    if (_localViewId != null) {
+      await _livePusher.setRenderViewID(_localViewId!);
     }
     var url = URLUtils.generateTRTCPushUrl(widget.streamId, null);
     var pushCode = await _livePusher.startPush(url);
@@ -213,13 +222,12 @@ class _LiveLinkMicAnchorPageState extends State<LiveLinkMicAnchorPage> {
   Widget renderView() {
     return V2TXLiveVideoWidget(
       onViewCreated: (viewId) async {
-        await _livePusher.setRenderViewID(viewId);
-        setState(() {
-          _localViewId = viewId;
-        });
+        _localViewId = viewId;
         if (_isStartPush == false) {
           _isStartPush = true;
-          startPush();
+          Future.delayed(const Duration(seconds: 1), (){
+            startPush();
+          });
         }
       },
     );
@@ -228,10 +236,7 @@ class _LiveLinkMicAnchorPageState extends State<LiveLinkMicAnchorPage> {
   Widget remoteView() {
     return V2TXLiveVideoWidget(
       onViewCreated: (viewId) async {
-        await _livePlayer.setRenderViewID(viewId);
-        setState(() {
-          _remoteViewId = viewId;
-        });
+        _remoteViewId = viewId;
       },
     );
   }

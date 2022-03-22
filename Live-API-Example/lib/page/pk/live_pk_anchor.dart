@@ -8,7 +8,7 @@ import 'package:live_flutter_plugin/v2_tx_live_player.dart';
 import 'package:live_flutter_plugin/v2_tx_live_pusher.dart';
 import 'package:live_flutter_plugin/widget/v2_tx_live_video_widget.dart';
 
-import '../../Utils/URLUtils.dart';
+import '../../utils/url_utils.dart';
 
 class LivePKAnchorPage extends StatefulWidget {
   final String streamId;
@@ -49,9 +49,9 @@ class _LivePKAnchorPageState extends State<LivePKAnchorPage> {
   }
 
   @override
-  dispose() {
+  void deactivate() {
     unFocus();
-    debugPrint("Live-PK Anchor dispose");
+    debugPrint("Live-PK Anchor deactivate");
     _livePlayer.stopPlay();
     _livePlayer.destroy();
 
@@ -60,6 +60,12 @@ class _LivePKAnchorPageState extends State<LivePKAnchorPage> {
     _livePusher.setMixTranscodingConfig(null);
     _livePusher.stopPush();
     _livePusher.destroy();
+    super.deactivate();
+  }
+
+  @override
+  dispose() {
+    debugPrint("Live-PK Anchor dispose");
     super.dispose();
   }
 
@@ -160,7 +166,9 @@ class _LivePKAnchorPageState extends State<LivePKAnchorPage> {
         });
         if (_isStartPush == false) {
           _isStartPush = true;
-          startPush();
+          Future.delayed(const Duration(seconds: 1), (){
+            startPush();
+          });
         }
       },
     );
