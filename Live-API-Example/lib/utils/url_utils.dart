@@ -1,34 +1,31 @@
 
 import 'dart:convert';
 import 'dart:math';
-import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
-import 'package:flutter/cupertino.dart';
 
-import '../debug/GenerateTestUserSig.dart';
+import '../debug/generate_test_user_sig.dart';
+
 class URLUtils {
 
   /// md5 加密
-  static String generate_MD5(String data) {
-    return md5.convert(utf8.encode(data)).toString();
-  }
+  static String generateMD5(String data) => md5.convert(utf8.encode(data)).toString();
 
   static String _getSafeUrl(String streamId) {
     var date = DateTime.now().millisecondsSinceEpoch~/1000+60*60;
     var hexTime = date.toRadixString(16).toUpperCase();
     var secret = "${GenerateTestUserSig.LIVE_URL_KEY}$streamId$hexTime";
-    var txSecret = generate_MD5(secret);
+    var txSecret = generateMD5(secret);
     return "txSecret=$txSecret&txTime=$hexTime";
   }
 
   static String generateRandomUserId() {
-    var rng = new Random();//随机数生成类
+    var rng = Random();//随机数生成类
     var userId = rng.nextInt(10000-1)+10000000;
     return "$userId";
   }
 
   static String generateRandomStreamId() {
-    var rng = new Random();//随机数生成类
+    var rng = Random();//随机数生成类
     var streamId = rng.nextInt(10000-1)+10000000;
     return "$streamId";
   }

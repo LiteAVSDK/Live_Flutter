@@ -1,13 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import 'Play/LivePlay.dart';
-import 'LiveWebView.dart';
+import 'play/live_play.dart';
+import 'live_web_view.dart';
 
 /// 直播拉流
 class LiveStartPlayPage extends StatefulWidget {
@@ -52,6 +49,7 @@ class _LiveStartPlayPageState extends State<LiveStartPlayPage> {
   }
 
   startPlay(BuildContext context, V2TXLivePlayMode playMode) {
+    unFocus();
     if (_streamId == "") {
       showToastText("Stream Id can not empty");
       return;
@@ -92,26 +90,22 @@ class _LiveStartPlayPageState extends State<LiveStartPlayPage> {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: Container(
-                            // height: 30.0,
-                            // color: Colors.red,
-                            child: TextField(
-                                style: const TextStyle(color: Colors.black),
-                                autofocus: false,
-                                focusNode: _streamIdFocusNode,
-                                decoration: const InputDecoration(
-                                  labelText: "Please Input Stream ID",
-                                  hintText: "Stream ID",
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  hintStyle: TextStyle(color: Colors.black26),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black45),
-                                  ),
+                          child: TextField(
+                              style: const TextStyle(color: Colors.black),
+                              autofocus: false,
+                              focusNode: _streamIdFocusNode,
+                              decoration: const InputDecoration(
+                                labelText: "Please Input Stream ID",
+                                hintText: "Stream ID",
+                                labelStyle: TextStyle(color: Colors.black),
+                                hintStyle: TextStyle(color: Colors.black26),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.black45),
                                 ),
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) => _streamId = value),
-                          ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) => _streamId = value),
                         ),
                       ],
                     ),

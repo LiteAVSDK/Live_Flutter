@@ -40,8 +40,8 @@
 
 
 ### 配置 Demo 工程文件
-1. 打开 Debug 目录下的 [GenerateTestUserSig.dart](debug/GenerateTestUserSig.dart) 文件。
-2. 配置`GenerateTestUserSig.dart`文件中的两个参数：
+1. 打开 Debug 目录下的 [generate_test_user_sig.dart](debug/generate_test_user_sig.dart) 文件。
+2. 配置`generate_test_user_sig.dart`文件中的两个参数：
   - SDKAPPID：替换该变量值为上一步骤中在页面上看到的 SDKAppID。
   - SECRETKEY：替换该变量值为上一步骤中在页面上看到的密钥。
  ![ #900px](https://main.qcloudimg.com/raw/fba60aa9a44a94455fe31b809433cfa4.png)

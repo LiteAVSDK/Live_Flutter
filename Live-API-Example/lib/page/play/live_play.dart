@@ -7,7 +7,7 @@ import 'package:live_flutter_plugin/v2_tx_live_player.dart';
 import 'package:live_flutter_plugin/widget/v2_tx_live_video_widget.dart';
 import 'package:live_flutter_plugin/v2_tx_live_player_observer.dart';
 
-import '../../Utils/URLUtils.dart';
+import '../../utils/url_utils.dart';
 
 enum V2TXLivePlayMode {
   /// 标准直播拉流
@@ -36,7 +36,6 @@ class _LivePlayPageState extends State<LivePlayPage> {
 
   bool _muteState = false;
 
-  String _platformVersion = 'Unknown';
   int? _localViewId;
 
   V2TXLivePlayer? _livePlayer;
@@ -49,11 +48,17 @@ class _LivePlayPageState extends State<LivePlayPage> {
   }
 
   @override
-  dispose() {
-    debugPrint("Live-Play dispose");
+  void deactivate() {
+    debugPrint("Live-Play deactivate");
     _livePlayer?.removeListener(onPlayerObserver);
     _livePlayer?.stopPlay();
     _livePlayer?.destroy();
+    super.deactivate();
+  }
+
+  @override
+  dispose() {
+    debugPrint("Live-Play dispose");
     super.dispose();
   }
 
@@ -65,9 +70,7 @@ class _LivePlayPageState extends State<LivePlayPage> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-    setState(() {
-      _platformVersion = "CreatePlayer result is ${_livePlayer?.status}";
-    });
+    debugPrint("CreatePlayer result is ${_livePlayer?.status}");
   }
 
   onPlayerObserver(V2TXLivePlayerListenerType type, param) {
@@ -107,7 +110,10 @@ class _LivePlayPageState extends State<LivePlayPage> {
     }
     if (_localViewId != null) {
       debugPrint("_localViewId $_localViewId");
-      await _livePlayer?.setRenderViewID(_localViewId!);
+      var code = await _livePlayer?.setRenderViewID(_localViewId!);
+      if (code != V2TXLIVE_OK) {
+        debugPrint("StartPlay error： please check remoteView load");
+      }
     }
     var url = "";
     if (widget.playMode == V2TXLivePlayMode.v2TXLivePlayModeStand) {
@@ -153,7 +159,9 @@ class _LivePlayPageState extends State<LivePlayPage> {
         appBar: AppBar(
           title: Text(widget.streamId),
           leading: IconButton(
-              onPressed: () => {Navigator.pop(context)},
+              onPressed: () => {
+                Navigator.pop(context)
+              },
               icon: const Icon(Icons.arrow_back_ios)),
         ),
         body: ConstrainedBox(

@@ -1,5 +1,4 @@
 
-
 enum LivePageType {
   /// 摄像头推流
   cameraPush,
@@ -18,5 +17,5 @@ enum LiveRoleType {
   /// 观众
   audience,
   /// 主播
-  annchor,
+  anchor,
 }

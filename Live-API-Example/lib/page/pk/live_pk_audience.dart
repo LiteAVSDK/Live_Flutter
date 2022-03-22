@@ -6,7 +6,7 @@ import 'package:live_flutter_plugin/v2_tx_live_code.dart';
 import 'package:live_flutter_plugin/v2_tx_live_player.dart';
 import 'package:live_flutter_plugin/widget/v2_tx_live_video_widget.dart';
 
-import '../../Utils/URLUtils.dart';
+import '../../utils/url_utils.dart';
 
 class LivePKAudiencePage extends StatefulWidget {
   final String streamId;
@@ -34,10 +34,16 @@ class _LivePKAudiencePageState extends State<LivePKAudiencePage> {
   }
 
   @override
-  dispose() {
-    debugPrint("Live-PK Audience dispose");
+  void deactivate() {
+    debugPrint("Live-PK Audience deactivate");
     _livePlayer.stopPlay();
     _livePlayer.destroy();
+    super.deactivate();
+  }
+
+  @override
+  dispose() {
+    debugPrint("Live-PK Audience dispose");
     super.dispose();
   }
 
@@ -80,7 +86,9 @@ class _LivePKAudiencePageState extends State<LivePKAudiencePage> {
         });
         if (_isStartPlay == false) {
           _isStartPlay = true;
-          startPlay();
+          Future.delayed(const Duration(seconds: 1), (){
+            startPlay();
+          });
         }
       },
     );

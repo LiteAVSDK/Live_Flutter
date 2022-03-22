@@ -2,7 +2,8 @@ import 'dart:core';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../Common/LiveSliderWidget.dart';
+
+import '../../common/live_slider_widget.dart';
 
 class LiveBeautySettings {
 

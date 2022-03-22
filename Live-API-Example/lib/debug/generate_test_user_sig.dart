@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 /*
  * Module:   GenerateTestUserSig
  *
@@ -19,7 +21,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
-import 'package:flutter/foundation.dart';
 
 class GenerateTestUserSig {
   /*
@@ -88,7 +89,7 @@ class GenerateTestUserSig {
 
     int currTime = _getCurrentTime();
     String sig = '';
-    Map<String, dynamic> sigDoc = new Map<String, dynamic>();
+    Map<String, dynamic> sigDoc = <String, dynamic>{};
     sigDoc.addAll({
       "TLS.ver": "2.0",
       "TLS.identifier": userId,
@@ -109,7 +110,7 @@ class GenerateTestUserSig {
   }
 
   static int _getCurrentTime() {
-    return (new DateTime.now().millisecondsSinceEpoch / 1000).floor();
+    return (DateTime.now().millisecondsSinceEpoch / 1000).floor();
   }
 
   static String _hmacsha256({
@@ -120,7 +121,7 @@ class GenerateTestUserSig {
     int sdkappid = sdkAppId;
     String contentToBeSigned =
         "TLS.identifier:$identifier\nTLS.sdkappid:$sdkappid\nTLS.time:$currTime\nTLS.expire:$expire\n";
-    Hmac hmacSha256 = new Hmac(sha256, utf8.encode(secretKey));
+    Hmac hmacSha256 = Hmac(sha256, utf8.encode(secretKey));
     Digest hmacSha256Digest =
     hmacSha256.convert(utf8.encode(contentToBeSigned));
     return base64.encode(hmacSha256Digest.bytes);
@@ -130,8 +131,8 @@ class GenerateTestUserSig {
     required String content,
   }) {
     return content
-        .replaceAll('\+', '*')
-        .replaceAll('\/', '-')
+        .replaceAll('+', '*')
+        .replaceAll('/', '-')
         .replaceAll('=', '_');
   }
 }
