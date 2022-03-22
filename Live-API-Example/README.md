@@ -1,4 +1,4 @@
-# TRTC Flutter API-Example 
+# live_flutter_plugin-Example
 [中文](README_zh-CN.md) | English
 
 ## Background
