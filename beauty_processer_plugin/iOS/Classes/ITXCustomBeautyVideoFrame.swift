@@ -8,7 +8,7 @@
 import Foundation
 import TXLiteAVSDK_Live
 
-public enum ITXCustomBeautyBufferType: Int {
+@objc public enum ITXCustomBeautyBufferType: Int {
     case Unknown = 0
     case PixelBuffer = 1
     case Data = 2
@@ -41,7 +41,7 @@ public enum ITXCustomBeautyBufferType: Int {
     }
 }
 
-public enum ITXCustomBeautyPixelFormat: Int {
+@objc public enum ITXCustomBeautyPixelFormat: Int {
     case Unknown = 0
     case I420 = 1
     case Texture2D = 2
@@ -79,6 +79,7 @@ public enum ITXCustomBeautyPixelFormat: Int {
     }
 }
 
+@objcMembers
 public class ITXCustomBeautyVideoFrame: NSObject {
     
     public enum ITXCustomBeautyRotation: Int {
@@ -122,8 +123,21 @@ public class ITXCustomBeautyVideoFrame: NSObject {
         height = v2VideoFrame.height
         textureId = v2VideoFrame.textureId
         rotation = ITXCustomBeautyRotation(rawValue: v2VideoFrame.rotation.rawValue) ?? .rotation_0
-        pixelFormat = ITXCustomBeautyPixelFormat(rawValue: v2VideoFrame.pixelFormat.rawValue) ?? nil
-        bufferType = ITXCustomBeautyBufferType(rawValue: v2VideoFrame.bufferType.rawValue) ?? nil
+        switch v2VideoFrame.pixelFormat {
+        case .unknown:
+            pixelFormat = .Unknown
+        case .I420:
+            pixelFormat = .I420
+        case .texture2D:
+            pixelFormat = .Texture2D
+        case .BGRA32:
+            pixelFormat = .BGRA
+        case .NV12:
+            pixelFormat = .NV12
+        default:
+            pixelFormat = .Unknown
+        }
+        bufferType = ITXCustomBeautyBufferType(rawValue: v2VideoFrame.bufferType.rawValue) ?? .Unknown
         timestamp = 0
         super.init()
     }
