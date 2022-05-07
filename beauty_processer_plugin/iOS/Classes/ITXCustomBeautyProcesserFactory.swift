@@ -7,15 +7,15 @@
 
 import UIKit
 
-public protocol ITXCustomBeautyProcessFactory: NSObject {
+@objc public protocol ITXCustomBeautyProcesserFactory {
     /// 创建美颜实例
-    func createBeautyInstance() -> ITXCustomBeautyProcesser
+    func createCustomBeautyProcesser() -> ITXCustomBeautyProcesser
     
     /// 销毁美颜实例
-    func destroyBeautyInstance()
+    func destroyCustomBeautyProcesser()
 }
 
-public protocol ITXCustomBeautyProcesser: NSObject {
+@objc public protocol ITXCustomBeautyProcesser {
     /// 获取第三方美颜 PixelFormat
     func getSupportedPixelFormat() -> ITXCustomBeautyPixelFormat
     

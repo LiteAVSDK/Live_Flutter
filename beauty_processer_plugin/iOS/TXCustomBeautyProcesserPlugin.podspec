@@ -8,18 +8,18 @@
 
 Pod::Spec.new do |spec|
 
-  spec.name          = "TXCustomBeautyProcessPlugin"
-  spec.version       = "1.0.0"
+  spec.name          = "TXCustomBeautyProcesserPlugin"
+  spec.version       = "v1.0.0"
   spec.summary       = "腾讯云实时音视频第三方美颜插件"
   spec.description   = <<-DESC
   腾讯云实时音视频第三方美颜插件
                    DESC
   spec.source        = { :path => '.' }
-  spec.homepage      = "https://github.com/LiteAVSDK/Live_Flutter/tree/main/beauty_process_plugin/iOS"
+  spec.homepage      = "https://github.com/LiteAVSDK/Live_Flutter/tree/main/beauty_processer_plugin/iOS"
   spec.license       = { :type => 'MIT', :file => 'LICENSE' }
   spec.author        = 'tencent video cloud'
-  spec.source        = { :git => 'https://github.com/LiteAVSDK/Live_Flutter.git', :tag => 'v1.0.0_beauty_process' }
-  spec.source_files  = 'beauty_process_plugin/iOS/Classes/*.swift'
+  spec.source        = { :git => 'https://github.com/LiteAVSDK/Live_Flutter.git', :tag => spec.version }
+  spec.source_files  = 'beauty_processer_plugin/iOS/Classes/*.swift'
   spec.ios.deployment_target = "9.0"
   
   spec.requires_arc = true 
@@ -28,6 +28,6 @@ Pod::Spec.new do |spec|
   spec.swift_version = '5.0'
   
   # live
-  spec.dependency 'TXLiteAVSDK_Live', '9.9.11217'
+  spec.dependency 'TXLiteAVSDK_Live'
 
 end
