@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import TXLiteAVSDK_Live
 
 @objc public enum ITXCustomBeautyBufferType: Int {
     case Unknown = 0
