@@ -13,32 +13,6 @@ import TXLiteAVSDK_Live
     case PixelBuffer = 1
     case Data = 2
     case Texture = 3
-    
-    public func convertV2LiveBufferType() -> V2TXLiveBufferType {
-        switch self {
-        case .Unknown:
-            return .unknown
-        case .PixelBuffer:
-            return .pixelBuffer
-        case .Data:
-            return .nsData
-        case .Texture:
-            return .texture
-        }
-    }
-    
-    public func convertTRTCBufferType() -> TRTCVideoBufferType {
-        switch self {
-        case .Unknown:
-            return .unknown
-        case .PixelBuffer:
-            return .pixelBuffer
-        case .Data:
-            return .nsData
-        case .Texture:
-            return .texture
-        }
-    }
 }
 
 @objc public enum ITXCustomBeautyPixelFormat: Int {
@@ -47,36 +21,6 @@ import TXLiteAVSDK_Live
     case Texture2D = 2
     case BGRA = 3
     case NV12 = 4
-    
-    public func convertV2LivePixelFormat() -> V2TXLivePixelFormat {
-        switch self {
-        case .Unknown:
-            return .unknown
-        case .I420:
-            return .I420
-        case .Texture2D:
-            return .texture2D
-        case .BGRA:
-            return .BGRA32
-        case .NV12:
-            return .NV12
-        }
-    }
-    
-    public func convertTRTCPixelFormat() -> TRTCVideoPixelFormat {
-        switch self {
-        case .Unknown:
-            return ._Unknown
-        case .I420:
-            return ._I420
-        case .Texture2D:
-            return ._Texture_2D
-        case .BGRA:
-            return ._32BGRA
-        case .NV12:
-            return ._NV12
-        }
-    }
 }
 
 @objcMembers
@@ -102,70 +46,18 @@ public class ITXCustomBeautyVideoFrame: NSObject {
     public var pixelBuffer: CVPixelBuffer?
 
     /// 【字段含义】视频宽度
-    public var width: UInt
+    public var width: UInt = 0
 
     /// 【字段含义】视频高度
-    public var height: UInt
+    public var height: UInt = 0
 
     /// 【字段含义】视频帧的顺时针旋转角度
-    public var rotation: ITXCustomBeautyRotation
+    public var rotation: ITXCustomBeautyRotation = .rotation_0
 
     /// 【字段含义】视频纹理ID
-    public var textureId: GLuint
+    public var textureId: GLuint = 0
     
     ///【字段含义】视频帧的时间戳，单位毫秒
-    public var timestamp: UInt64
-    
-    public init(v2VideoFrame: V2TXLiveVideoFrame) {
-        data = v2VideoFrame.data
-        pixelBuffer = v2VideoFrame.pixelBuffer
-        width = v2VideoFrame.width
-        height = v2VideoFrame.height
-        textureId = v2VideoFrame.textureId
-        rotation = ITXCustomBeautyRotation(rawValue: v2VideoFrame.rotation.rawValue) ?? .rotation_0
-        switch v2VideoFrame.pixelFormat {
-        case .unknown:
-            pixelFormat = .Unknown
-        case .I420:
-            pixelFormat = .I420
-        case .texture2D:
-            pixelFormat = .Texture2D
-        case .BGRA32:
-            pixelFormat = .BGRA
-        case .NV12:
-            pixelFormat = .NV12
-        default:
-            pixelFormat = .Unknown
-        }
-        bufferType = ITXCustomBeautyBufferType(rawValue: v2VideoFrame.bufferType.rawValue) ?? .Unknown
-        timestamp = 0
-        super.init()
-    }
-    
-    public init(trtcVideoFrame: TRTCVideoFrame) {
-        data = trtcVideoFrame.data
-        pixelBuffer = trtcVideoFrame.pixelBuffer
-        width = UInt(trtcVideoFrame.width)
-        height = UInt(trtcVideoFrame.height)
-        textureId = trtcVideoFrame.textureId
-        rotation = ITXCustomBeautyRotation(rawValue: trtcVideoFrame.rotation.rawValue) ?? .rotation_0
-        switch trtcVideoFrame.pixelFormat {
-        case ._Unknown:
-            pixelFormat = .Unknown
-        case ._I420:
-            pixelFormat = .I420
-        case ._Texture_2D:
-            pixelFormat = .Texture2D
-        case ._32BGRA:
-            pixelFormat = .BGRA
-        case ._NV12:
-            pixelFormat = .NV12
-        default:
-            pixelFormat = .Unknown
-        }
-        bufferType = ITXCustomBeautyBufferType(rawValue: trtcVideoFrame.bufferType.rawValue) ?? .Unknown
-        timestamp = trtcVideoFrame.timestamp
-        super.init()
-    }
+    public var timestamp: UInt64 = 0
 
 }
