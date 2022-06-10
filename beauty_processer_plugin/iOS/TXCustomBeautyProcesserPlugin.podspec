@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name          = "TXCustomBeautyProcesserPlugin"
-  spec.version       = "v1.0.0"
+  spec.version       = "v1.0.1"
   spec.summary       = "腾讯云实时音视频第三方美颜插件"
   spec.description   = <<-DESC
   腾讯云实时音视频第三方美颜插件
