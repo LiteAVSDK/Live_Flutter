@@ -66,8 +66,8 @@ class _LiveLinkMicAudiencePageState extends State<LiveLinkMicAudiencePage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    _livePusher = V2TXLivePusher(V2TXLiveMode.v2TXLiveModeRTC);
-    _livePlayer = V2TXLivePlayer();
+    _livePusher = await V2TXLivePusher.create(V2TXLiveMode.v2TXLiveModeRTC);
+    _livePlayer = await V2TXLivePlayer.create();
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.

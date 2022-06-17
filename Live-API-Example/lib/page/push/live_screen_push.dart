@@ -63,7 +63,7 @@ class _LiveScreenPushPageState extends State<LiveScreenPushPage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    _livePusher = V2TXLivePusher(widget.liveMode);
+    _livePusher = await V2TXLivePusher.create(widget.liveMode);
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
