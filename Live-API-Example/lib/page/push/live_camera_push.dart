@@ -48,6 +48,7 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
   V2TXLiveMirrorType _liveMirrorType =
       V2TXLiveMirrorType.v2TXLiveMirrorTypeAuto;
 
+  bool _isEnableBeauty = false;
   /// 音频设置
   bool _microphoneEnable = true;
   TXDeviceManager? _txDeviceManager;
@@ -97,7 +98,7 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    _livePusher = V2TXLivePusher(widget.liveMode);
+    _livePusher = await V2TXLivePusher.create(widget.liveMode);
     _livePusher?.addListener(onPusherObserver);
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -383,6 +384,12 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
     );
   }
 
+  void _enableCustomBeauty() {
+    _isEnableBeauty = !_isEnableBeauty;
+    var enableCustomVideo = _livePusher?.enableCustomVideoProcess(_isEnableBeauty);
+    debugPrint("enable custom VideoProcess: $enableCustomVideo");
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -455,6 +462,48 @@ class _LiveCameraPushPageState extends State<LiveCameraPushPage> {
                                           ),
                                         )),
                                     const Spacer(flex: 1)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0.0),
+                        child: SizedBox(
+                          height: 80,
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              const Expanded(
+                                flex: 1,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Text("Enable Beauty",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: ElevatedButton(
+                                        child: const Text(
+                                          "enable Beauty",
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                        onPressed: () {
+                                          _enableCustomBeauty();
+                                        },
+                                      ),
+                                    ),
+                                    const Spacer(flex: 1),
                                   ],
                                 ),
                               ),
