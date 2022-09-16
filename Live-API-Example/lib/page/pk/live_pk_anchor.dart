@@ -119,7 +119,7 @@ class _LivePKAnchorPageState extends State<LivePKAnchorPage> {
     }
     debugPrint("remote streamId: streamId");
     var url = URLUtils.generateTRTCPlayUrl(streamId, widget.streamId);
-    _livePlayer.startPlay(url);
+    _livePlayer.startLivePlay(url);
 
     V2TXLiveTranscodingConfig config = V2TXLiveTranscodingConfig();
     config.videoWidth = 360;

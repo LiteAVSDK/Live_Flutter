@@ -194,10 +194,10 @@ Widget renderView() {
 
 ```dart
 startPlay() async {
-  // generate RTMP/TRTC/Led url
+  // generate RTMP/TRTC/Leb url
   var url = ""
   // start play
-  await _livePlayer?.startPlay(url);
+  await _livePlayer?.startLivePlay(url);
 }
 ```
 

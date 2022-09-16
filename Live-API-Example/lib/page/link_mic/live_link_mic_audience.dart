@@ -84,7 +84,7 @@ class _LiveLinkMicAudiencePageState extends State<LiveLinkMicAudiencePage> {
     }
     var url = URLUtils.generateLedPlayUrl(widget.streamId);
     debugPrint("startLebPlay url: $url");
-    var playCode = await _livePlayer.startPlay(url);
+    var playCode = await _livePlayer.startLivePlay(url);
     if (playCode != V2TXLIVE_OK) {
       showErrordDialog("startLebPlay error： please check playURL: $url");
       return;
@@ -101,7 +101,7 @@ class _LiveLinkMicAudiencePageState extends State<LiveLinkMicAudiencePage> {
     }
     var url = URLUtils.generateTRTCPlayUrl(widget.streamId, null);
     debugPrint("startRtcPlay url: $url");
-    var playCode = await _livePlayer.startPlay(url);
+    var playCode = await _livePlayer.startLivePlay(url);
     if (playCode != V2TXLIVE_OK) {
       showErrordDialog("startLebPlay error： please check playURL: $url");
       return;
