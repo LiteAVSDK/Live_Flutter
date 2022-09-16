@@ -197,10 +197,10 @@ Widget renderView() {
 ```dart
 /// 开始拉流
 startPlay() async {
-  // 生成拉流url RTMP/TRTC/Led
+  // 生成拉流url RTMP/TRTC/Leb
   var url = ""
   // 开始拉流
-  await _livePlayer?.startPlay(url);
+  await _livePlayer?.startLivePlay(url);
 }
 ```
 

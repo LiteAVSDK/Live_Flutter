@@ -127,7 +127,7 @@ class _LiveLinkMicAnchorPageState extends State<LiveLinkMicAnchorPage> {
       return;
     }
     var url = URLUtils.generateTRTCPlayUrl(streamId, widget.streamId);
-    var playCode = await _livePlayer.startPlay(url);
+    var playCode = await _livePlayer.startLivePlay(url);
     if (playCode != V2TXLIVE_OK) {
       showErrordDialog("startLinkMic error： please check playURL: $url");
       return;

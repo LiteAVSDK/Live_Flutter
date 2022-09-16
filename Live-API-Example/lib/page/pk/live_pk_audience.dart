@@ -66,7 +66,7 @@ class _LivePKAudiencePageState extends State<LivePKAudiencePage> {
     }
     var url = URLUtils.generateLedPlayUrl(widget.streamId);
     debugPrint("play url: $url");
-    var playStatus = await _livePlayer.startPlay(url);
+    var playStatus = await _livePlayer.startLivePlay(url);
     if (playStatus != V2TXLIVE_OK) {
       debugPrint("play error: $playStatus url: $url");
       return;

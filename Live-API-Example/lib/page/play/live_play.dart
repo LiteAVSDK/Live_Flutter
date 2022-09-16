@@ -126,7 +126,7 @@ class _LivePlayPageState extends State<LivePlayPage> {
       url = URLUtils.generateLedPlayUrl(widget.streamId);
     }
     debugPrint("play url: $url");
-    var playStatus = await _livePlayer?.startPlay(url);
+    var playStatus = await _livePlayer?.startLivePlay(url);
     if (playStatus == null || playStatus != V2TXLIVE_OK) {
       debugPrint("play error: $playStatus url: $url");
       return;
