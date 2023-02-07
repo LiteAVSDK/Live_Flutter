@@ -160,7 +160,6 @@ class _LivePKAnchorPageState extends State<LivePKAnchorPage> {
   Widget renderView() {
     return V2TXLiveVideoWidget(
       onViewCreated: (viewId) async {
-        await _livePusher.setRenderViewID(viewId);
         setState(() {
           _localViewId = viewId;
         });
