@@ -80,7 +80,6 @@ class _LivePKAudiencePageState extends State<LivePKAudiencePage> {
   Widget renderView() {
     return V2TXLiveVideoWidget(
       onViewCreated: (viewId) async {
-        await _livePlayer.setRenderViewID(viewId);
         setState(() {
           _localViewId = viewId;
         });
