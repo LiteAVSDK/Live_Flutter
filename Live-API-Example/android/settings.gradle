@@ -3,9 +3,6 @@ include ':app'
 //include ':beauty_process'
 //project(":beauty_process").projectDir = new File("${rootDir}/../../../beauty_process_plugin/android")
 
-include ':android'
-project(":android").projectDir = new File("${rootDir}/../../android")
-
 def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
 def properties = new Properties()
 
